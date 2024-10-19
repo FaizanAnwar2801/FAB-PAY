@@ -1,4 +1,6 @@
+/* eslint-disable turbo/no-undeclared-env-vars */
 import GoogleProvider from "next-auth/providers/google";
+import  GithubProfile  from "next-auth/providers/github";
 import db from "@repo/db/client";
 
 export const authOptions = {
@@ -6,7 +8,11 @@ export const authOptions = {
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID || "",
             clientSecret: process.env.GOOGLE_CLIENT_SECRET || ""
-        })
+        }),
+        GithubProfile({
+            clientId: process.env.GITHUB_CLIENT_ID || "",
+            clientSecret: process.env.GITHUB_CLIENT_SECRET || "",
+        }),
     ],
     callbacks: {
         async signIn({ user, account }: {
