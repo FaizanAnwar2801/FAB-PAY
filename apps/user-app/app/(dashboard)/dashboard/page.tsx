@@ -1,6 +1,6 @@
 
 export default function () {
-    return <div>
+    return <div className="text-bold text-center pt-4">
         Dashboard
     </div>
 }
