@@ -9,7 +9,7 @@ export function Card({
     <div
       className="border p-6 bg-white rounded-xl"
     >
-      <h1 className="text-xl border-b pb-2">
+      <h1 className="text-xl border-b pb-2 font-bold">
         {title}
       </h1>
       <p>{children}</p>
