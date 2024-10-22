@@ -10,6 +10,21 @@ export function SendCard() {
     const [number, setNumber] = useState("");
     const [amount, setAmount] = useState("");
 
+    const handleTransfer = async () => {
+        try {
+            const response = await p2pTransfer(number, Number(amount) * 100);
+            
+            // Assuming the response has `statusCode` and `message`
+            if (response.statusCode === 200) {
+                alert("Transfer Successful!");
+            } else {
+                alert(`Error: ${response.message}`);
+            }
+        } catch (error) {
+            alert("An unexpected error occurred");
+        }
+    };
+
     return <div className="h-[90vh]">
         <Center>
             <Card title="Send">
@@ -21,9 +36,7 @@ export function SendCard() {
                         setAmount(value)
                     }} />
                     <div className="pt-4 flex justify-center">
-                        <Button onClick={async () => {
-                            await p2pTransfer(number, Number(amount)*100)
-                        }}>Send</Button>
+                        <Button onClick={handleTransfer}>Send</Button>
                     </div>
                 </div>
             </Card>
