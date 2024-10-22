@@ -26,7 +26,7 @@ export default function Layout({ children }: { children: React.ReactNode }): JSX
                 <div className="w-48 border-r border-slate-300 min-h-screen mr-2 pt-2">
                     <div className="space-y-5">
                         <SidebarItem href={"/dashboard"} icon={<HomeIcon />} title="Home" />
-                        <SidebarItem href={"/transfer"} icon={<TransferIcon />} title="Transfer" />
+                        <SidebarItem href={"/transfer"} icon={<TransferIcon />} title="Bank Transfer" />
                         <SidebarItem href={"/transactions"} icon={<TransactionsIcon />} title="Transactions" />
                         <SidebarItem href={"/p2pTransfer"} icon={<P2PTransferIcon />} title="P2P Transfer" />
                     </div>
