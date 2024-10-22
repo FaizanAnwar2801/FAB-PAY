@@ -20,13 +20,23 @@ async function main() {
                 create: {
                     startTime: new Date(),
                     status: "Success",
-                    amount: 20000,
+                    amount: 70000,
                     token: "token__1",
                     provider: "HDFC Bank",
-                },
+                }
             },
-        },
-    })
+            Withdrawals: {
+                create: {
+                    startTime: new Date(),
+                    status: "Success",
+                    amount: 50000,
+                    token: "token__1",
+                    provider: "HDFC Bank",
+                }
+            }
+        }
+    });
+
     const bob = await prisma.user.upsert({
         where: { number: '2222222222' },
         update: {},
@@ -44,21 +54,32 @@ async function main() {
                 create: {
                     startTime: new Date(),
                     status: "Failure",
-                    amount: 20000,
+                    amount: 45000,
                     token: "token__2",
                     provider: "HDFC Bank",
-                },
+                }
             },
-        },
-    })
-    console.log({ alice, bob })
+            Withdrawals: {
+                create: {
+                    startTime: new Date(),
+                    status: "Failure",
+                    amount: 25000,
+                    token: "token__2",
+                    provider: "HDFC Bank",
+                }
+            }
+        }
+    });
+
+    console.log({ alice, bob });
 }
+
 main()
     .then(async () => {
-        await prisma.$disconnect()
+        await prisma.$disconnect();
     })
     .catch(async (e) => {
-        console.error(e)
-        await prisma.$disconnect()
-        process.exit(1)
-    })
+        console.error(e);
+        await prisma.$disconnect();
+        process.exit(1);
+    });
