@@ -14,6 +14,7 @@ model User {
   number            String              @unique
   password          String
   OnRampTransaction OnRampTransaction[]
+  Withdrawals       Withdrawals[]
   Balance           Balance[]
   sentTransfers     p2pTransfer[]       @relation(name: "FromUserRelation")
   receivedTransfers p2pTransfer[]       @relation(name: "ToUserRelation")
@@ -37,6 +38,17 @@ model OnRampTransaction {
   user      User         @relation(fields: [userId], references: [id])
 }
 
+model Withdrawals {
+  id        Int          @id @default(autoincrement())
+  status    WdStatus
+  token     String       @unique
+  provider  String
+  amount    Int
+  startTime DateTime
+  userId    Int
+  user      User         @relation(fields: [userId], references: [id])
+}
+
 model Balance {
   id     Int  @id @default(autoincrement())
   userId Int  @unique
@@ -51,6 +63,12 @@ enum AuthType {
 }
 
 enum OnRampStatus {
+  Success
+  Failure
+  Processing
+}
+
+enum WdStatus {
   Success
   Failure
   Processing
