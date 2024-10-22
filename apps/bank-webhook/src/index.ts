@@ -102,4 +102,53 @@ app.post("/axisWebhook", async (req, res) => {
 
 })
 
+app.post("/WithdrawalWebhook", async (req, res) => {
+    //TODO: Add zod validation here?
+    //TODO: HDFC bank should ideally send us a secret so we know this is sent by them
+    // Check if the On-Ramp Txn is happening only once or check for status proscessing.
+    const withdrawInformation: {
+        token: string;
+        userId: string;
+        amount: string
+    } = {
+        token: req.body.token,
+        userId: req.body.user_identifier,
+        amount: req.body.amount
+    };
+
+    try {
+        await db.$transaction([
+            db.balance.updateMany({
+                where: {
+                    userId: Number(withdrawInformation.userId)
+                },
+                data: {
+                    amount: {
+                        // You can also get this from your DB
+                        decrement: Number(withdrawInformation.amount)
+                    }
+                }
+            }),
+            db.withdrawals.updateMany({
+                where: {
+                    token: withdrawInformation.token
+                },
+                data: {
+                    status: "Success",
+                }
+            })
+        ]);
+
+        res.json({
+            message: "Captured"
+        })
+    } catch (e) {
+        console.error(e);
+        res.status(411).json({
+            message: "Error while processing webhook"
+        })
+    }
+
+})
+
 app.listen(3003);
