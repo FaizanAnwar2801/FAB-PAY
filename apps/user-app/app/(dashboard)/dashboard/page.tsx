@@ -2,6 +2,7 @@ import prisma from "@repo/db/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../lib/auth";
 import { BalanceCard } from "../../../components/BalanceCard";
+import { ActionCard } from "../../../components/ActionCard";
 
 async function getBalance() {
     const session = await getServerSession(authOptions);
@@ -22,7 +23,10 @@ export default async function () {
     const balance = await getBalance();
     const toSentenceCase = (name: string | undefined) => {
         if (!name) return "";
-        return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+        return name
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
     };
 
     return <div className="w-full">
@@ -30,8 +34,9 @@ export default async function () {
             Hi, {toSentenceCase(session?.user?.name)}.
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 p-2">
-        <BalanceCard amount={balance.amount} locked={balance.locked} />
+            <BalanceCard amount={balance.amount} locked={balance.locked} />
+            <ActionCard />
         </div>
     </div>
-    
+
 }
