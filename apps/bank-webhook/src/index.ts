@@ -20,16 +20,21 @@ app.post("/hdfcWebhook", async (req, res) => {
 
     try {
         await db.$transaction([
-            db.balance.updateMany({
+            db.balance.upsert({
                 where: {
                     userId: Number(paymentInformation.userId)
                 },
-                data: {
+                update: {
                     amount: {
                         // You can also get this from your DB
                         increment: Number(paymentInformation.amount)
                     }
-                }
+                },
+                create: {
+                    userId: Number(paymentInformation.userId),
+                    amount: Number(paymentInformation.amount),
+                    locked: Number("0"),
+                },
             }),
             db.onRampTransaction.updateMany({
                 where: {
@@ -69,16 +74,20 @@ app.post("/axisWebhook", async (req, res) => {
 
     try {
         await db.$transaction([
-            db.balance.updateMany({
+            db.balance.upsert({
                 where: {
                     userId: Number(paymentInformation.userId)
                 },
-                data: {
+                update: {
                     amount: {
                         // You can also get this from your DB
                         increment: Number(paymentInformation.amount)
                     }
-                }
+                },
+                create: {
+                    userId: Number(paymentInformation.userId),
+                    amount: Number(paymentInformation.amount),
+                },
             }),
             db.onRampTransaction.updateMany({
                 where: {
