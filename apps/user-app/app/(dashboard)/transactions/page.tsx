@@ -31,6 +31,8 @@ async function getP2PTransactions() {
                     name : true,
                 }
             }
+        },orderBy: {
+            timestamp: 'desc'  // Order by timestamp descending
         }
     });
     return p2pTxns.map(t => ({
@@ -51,6 +53,8 @@ async function getP2PTransactionsFrom() {
                     name : true,
                 }
             }
+        },orderBy: {
+            timestamp: 'desc'  // Order by timestamp descending
         }
     });
     return p2pTxns.map(t => ({
@@ -66,6 +70,8 @@ async function getOnRampTransactions() {
     const txns = await prisma.onRampTransaction.findMany({
         where: {
             userId: Number(session?.user?.id)
+        },orderBy: {
+            startTime: 'desc'  // Order by timestamp descending
         }
     });
     return txns.map(t => ({
@@ -81,6 +87,8 @@ async function getWithdrawalTxns() {
     const txns = await prisma.withdrawals.findMany({
         where: {
             userId: Number(session?.user?.id)
+        },orderBy: {
+            startTime: 'desc'  // Order by timestamp descending
         }
     });
     return txns.map(t => ({
