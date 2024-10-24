@@ -32,8 +32,8 @@ export const RecentTransfers = ({
                                         {t.time.toDateString()}
                                     </div>
                                 </div>
-                                <div className="text-red-600 flex flex-col justify-center">
-                                    - Rs {t.amount / 100}
+                                <div className="text-green-600 flex flex-col justify-center">
+                                    + Rs {t.amount / 100}
                                 </div>
                             </div>
                         ))
@@ -58,8 +58,8 @@ export const RecentTransfers = ({
                                         {t.time.toDateString()}
                                     </div>
                                 </div>
-                                <div className="text-green-600 flex flex-col justify-center">
-                                    + Rs {t.amount / 100}
+                                <div className="text-red-600 flex flex-col justify-center">
+                                    - Rs {t.amount / 100}
                                 </div>
                             </div>
                         ))
