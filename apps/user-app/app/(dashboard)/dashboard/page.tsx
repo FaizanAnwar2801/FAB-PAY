@@ -29,6 +29,8 @@ async function getP2PTransactions() {
                     name: true,
                 }
             }
+        },orderBy: {
+            timestamp: 'desc'  // Order by timestamp descending
         }
     });
     return p2pTxns.map(t => ({
@@ -49,6 +51,8 @@ async function getP2PTransactionsFrom() {
                     name: true,
                 }
             }
+        },orderBy: {
+            timestamp: 'desc'  // Order by timestamp descending
         }
     });
     return p2pTxns.map(t => ({
