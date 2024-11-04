@@ -6,11 +6,11 @@ app.use(express.json())
 
 app.post("/hdfcWebhook", async (req, res) => {
     //TODO: Add zod validation here?
-    //TODO: HDFC bank should ideally send us a secret so we know this is sent by them
+    //TODO: HDFC bank should ideally send us a secret so we know this is sent by them.
     // Check if the On-Ramp Txn is happening only once or check for status proscessing.
     const paymentInformation: {
         token: string;
-        userId: string;
+        userId: number;
         amount: string
     } = {
         token: req.body.token,
