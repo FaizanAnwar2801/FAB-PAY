@@ -33,7 +33,7 @@ async function getP2PTransactions() {
             timestamp: 'desc'  // Order by timestamp descending
         }
     });
-    return p2pTxns.map(t => ({
+    return p2pTxns.map((t: typeof p2pTxns[0]) => ({
         time: t.timestamp,
         amount: t.amount,
         sentTo: t.toUser.name
@@ -55,7 +55,7 @@ async function getP2PTransactionsFrom() {
             timestamp: 'desc'  // Order by timestamp descending
         }
     });
-    return p2pTxns.map(t => ({
+    return p2pTxns.map((t: typeof p2pTxns[0]) => ({
         time: t.timestamp,
         amount: t.amount,
         sentFrom: t.fromUser.name
@@ -63,7 +63,7 @@ async function getP2PTransactionsFrom() {
 
 }
 
-export default async function () {
+export default async function DashboardPage() {
     const session = await getServerSession(authOptions);
     const balance = await getBalance();
     const transactionsFrom = await getP2PTransactionsFrom();
