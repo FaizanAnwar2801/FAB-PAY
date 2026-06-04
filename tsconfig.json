@@ -1,3 +1,8 @@
-    {
-        "extends": "@repo/typescript-config/base.json"
+{
+    "compilerOptions": {
+        "strict": true
+    },
+    "dependencies": {
+        "@repo/typescript-config": "workspace:*"
     }
+}
