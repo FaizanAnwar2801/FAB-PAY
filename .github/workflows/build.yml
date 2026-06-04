@@ -5,19 +5,19 @@ on:
 jobs:
   build:
     name: Test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3 
 
       - name: Set Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "20"
+          node-version: "20" # set-up & install node 
 
       - name: Run install
         uses: borales/actions-yarn@v4
         with:
-          cmd: install # will run `yarn install` command
+          cmd: install # will run yarn install command
 
       - name: Generate prisma client
         run: yarn db:generate
@@ -25,4 +25,4 @@ jobs:
       - name: Build production bundle
         uses: borales/actions-yarn@v4
         with:
-          cmd: build # will run `yarn build` command
+          cmd: build # will run yarn build command
