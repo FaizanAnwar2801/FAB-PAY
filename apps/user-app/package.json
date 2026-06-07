@@ -12,26 +12,26 @@
     "@repo/db": "*",
     "@repo/store": "*",
     "@repo/ui": "*",
-    "@types/bcrypt": "^5.0.2",
-    "bcrypt": "^5.1.1",
-    "next": "14.2.6",
-    "next-auth": "^4.24.8",
-    "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "@types/bcrypt": "^6.0.0",
+    "bcrypt": "^6.0.0",
+    "next": "16.2.7",
+    "next-auth": "^4.24.14",
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^14.1.1",
+    "@next/eslint-plugin-next": "^16.2.7",
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
-    "@types/eslint": "^8.56.5",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "autoprefixer": "^10.4.20",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.6",
-    "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.13",
-    "typescript": "^5"
+    "@types/eslint": "^9.6.1",
+    "@types/node": "^25",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.5.0",
+    "eslint": "^10",
+    "eslint-config-next": "16.2.7",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^4.3.0",
+    "typescript": "^6.0.3"
   }
 }
