@@ -1,8 +1,8 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import { SidebarItem } from "../../components/SidebarItems";
 
-export default function Layout({ children }: { children: React.ReactNode }): JSX.Element {
+export default function Layout({ children }: { children: React.ReactNode }): React.JSX.Element {
     // State to track sidebar visibility
     const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
@@ -43,7 +43,7 @@ export default function Layout({ children }: { children: React.ReactNode }): JSX
                 </div>
             )}
 
-            <div className="flex-grow">{children}</div>
+            <div className="grow">{children}</div>
         </div>
     );
 }

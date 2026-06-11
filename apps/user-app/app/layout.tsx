@@ -1,4 +1,5 @@
 import "./globals.css";
+import React from "react"
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Providers } from "../provider";
@@ -15,7 +16,7 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}): JSX.Element {
+}): React.JSX.Element {
   return (
     <html lang="en">
       <Providers>
