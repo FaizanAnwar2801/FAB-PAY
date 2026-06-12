@@ -1,6 +1,11 @@
-const { resolve } = require("node:path");
-
-const project = resolve(process.cwd(), "tsconfig.json");
+import js from "@eslint/js";
+import prettierConfig from "eslint-config-prettier";
+import onlyWarn from "eslint-plugin-only-warn";
+import reactPlugin from "eslint-plugin-react";
+import reactHooksPlugin from "eslint-plugin-react-hooks";
+import pluginTurbo from "eslint-plugin-turbo";
+import globals from "globals";
+import tseslint from "typescript-eslint";
 
 /*
  * This is a custom ESLint configuration for use with
@@ -8,32 +13,34 @@ const project = resolve(process.cwd(), "tsconfig.json");
  * that utilize React.
  */
 
-/** @type {import("eslint").Linter.Config} */
-module.exports = {
-  extends: ["eslint:recommended", "prettier", "turbo"],
-  plugins: ["only-warn"],
-  globals: {
-    React: true,
-    JSX: true,
-  },
-  env: {
-    browser: true,
-  },
-  settings: {
-    "import/resolver": {
-      typescript: {
-        project,
+/** @type {import("typescript-eslint").Config} */
+export default [
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  pluginTurbo.configs["flat/recommended"],
+  reactPlugin.configs.flat.recommended,
+  reactPlugin.configs.flat["jsx-runtime"],
+  {
+    plugins: {
+      "react-hooks": reactHooksPlugin,
+      "only-warn": onlyWarn,
+    },
+    rules: {
+      ...reactHooksPlugin.configs.recommended.rules,
+    },
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+      },
+    },
+    settings: {
+      react: {
+        version: "detect",
       },
     },
   },
-  ignorePatterns: [
-    // Ignore dotfiles
-    ".*.js",
-    "node_modules/",
-    "dist/",
-  ],
-  overrides: [
-    // Force ESLint to detect .tsx files
-    { files: ["*.js?(x)", "*.ts?(x)"] },
-  ],
-};
+  prettierConfig,
+  {
+    ignores: [".*.js", "node_modules/", "dist/"],
+  },
+];

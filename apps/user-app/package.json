@@ -2,6 +2,7 @@
   "name": "user",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --port 3001",
     "build": "next build",
@@ -29,9 +30,8 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.5.0",
-    "eslint": "^10",
-    "eslint-config-next": "16.2.7",
+    "eslint": "^9.39.1",
     "tailwindcss": "^4.3.0",
-    "typescript": "^6.0.3"
+    "typescript": "^5.9.2"
   }
 }

@@ -1,5 +1,5 @@
 import "./globals.css";
-import React from "react"
+import React from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Providers } from "../provider";
@@ -19,14 +19,14 @@ export default function RootLayout({
 }): React.JSX.Element {
   return (
     <html lang="en">
-      <Providers>
-        <body className={inter.className}>
-          <div className="min-w-screen min-h-screen bg-gray-50">
+      <body className={inter.className}>
+        <Providers>
+          <div className="min-h-screen w-full bg-gray-50">
             <AppbarClient />
             {children}
           </div>
-        </body>
-      </Providers>
+        </Providers>
+      </body>
     </html>
   );
 }

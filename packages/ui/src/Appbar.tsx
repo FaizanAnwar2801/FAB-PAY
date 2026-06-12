@@ -1,25 +1,31 @@
 import { Button } from "./button";
 
 interface AppbarProps {
-    user?: {
-        name?: string | null;
-    },
-    // TODO: can u figure out what the type should be here?
-    onSignin: any,
-    onSignout: any
+  user?: {
+    name?: string | null;
+  };
+  onSignin: () => void | Promise<void>;
+  onSignout: () => void | Promise<void>;
+  onLogoClick?: () => void;
 }
 
 export const Appbar = ({
-    user,
-    onSignin,
-    onSignout
+  user,
+  onSignin,
+  onSignout,
+  onLogoClick,
 }: AppbarProps) => {
-    return <div className="flex justify-between border-b px-4">
-        <div className="text-lg font-bold flex flex-col justify-center">
-            FAB-PAY
-        </div>
-        <div className="flex flex-col justify-center pt-2">
-            <Button onClick={user ? onSignout : onSignin}>{user ? "Logout" : "Login"}</Button>
-        </div>
+  return (
+    <div className="flex justify-between items-center border-b bg-white px-6 py-3 shadow-sm">
+      <button
+        onClick={onLogoClick}
+        className="text-lg font-bold tracking-tight text-gray-900 hover:text-gray-600 transition-colors duration-150 focus:outline-none"
+      >
+        FAB-PAY
+      </button>
+      <Button variant= "outline" onClick={user ? onSignout : onSignin}>
+        {user ? "Logout" : "Login"}
+      </Button>
     </div>
-}
+  );
+};

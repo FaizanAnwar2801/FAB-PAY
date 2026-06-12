@@ -13,14 +13,13 @@ export function SendCard() {
     const handleTransfer = async () => {
         try {
             const response = await p2pTransfer(number, Number(amount) * 100);
-            
-            // Assuming the response has `statusCode` and `message`
+
             if (response.statusCode === 200) {
                 alert("Transfer Successful!");
             } else {
                 alert(`Error: ${response.message}`);
             }
-        } catch (error) {
+        } catch {
             alert("An unexpected error occurred");
         }
     };
