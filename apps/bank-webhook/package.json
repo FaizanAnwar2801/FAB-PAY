@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "yarn esbuild ./src/index.ts --bundle --platform=node --outfile=dist/index.js",
+    "build": "yarn esbuild ./src/index.ts --bundle --platform=node --format=esm --outfile=dist/index.js",
     "start": "yarn node dist/index.js",
     "dev": "yarn build && yarn start"
   },
