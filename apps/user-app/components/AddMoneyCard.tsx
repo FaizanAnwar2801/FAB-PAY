@@ -23,7 +23,7 @@ export const AddMoney = () => {
         <TextInput label={"Amount"} placeholder={"Amount"} onChange={(value) => {
             setValue(Number(value))
         }} />
-        <div className="py-4 text-left">
+        <div className="py-2 text-left">
             Bank
         </div>
         <Select onSelect={(value) => {

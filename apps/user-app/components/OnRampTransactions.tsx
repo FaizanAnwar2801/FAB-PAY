@@ -29,33 +29,33 @@ export const OnRampTransactions = ({
             case "Failure":
                 return "text-red-500";
             default:
-                return "text-gray-700"; // Fallback for unknown statuses
+                return "text-gray-700";
         }
     };
 
     return <Card title="Transactions To Wallet">
         <div className="pt-2">
-            {transactions.map(t => <div className="flex justify-between">
-                <div>
-                    <div className="text-sm">
-                        Received INR
+            {transactions.map(t => (
+                <div key={`${t.time.toISOString()}-${t.provider}`} className="flex justify-between">
+                    <div>
+                        <div className="text-sm">
+                            Received INR
+                        </div>
+                        <div className="text-slate-600 text-xs">
+                            {t.time.toDateString()}
+                        </div>
+                        <div className="text-slate-600 text-xs">
+                            {t.provider}
+                        </div>
+                        <div className={`text-xs font-bold ${getStatusColor(t.status)}`}>
+                            {t.status}
+                        </div>
                     </div>
-                    <div className="text-slate-600 text-xs">
-                        {t.time.toDateString()}
+                    <div className="flex flex-col justify-center text-green-600">
+                        + Rs {t.amount / 100}
                     </div>
-                    <div className="text-slate-600 text-xs">
-                        {t.provider}
-                    </div>
-                    <div className={`text-xs font-bold ${getStatusColor(t.status)}`}>
-                        {t.status}
-                    </div>
-                    
                 </div>
-                <div className="flex flex-col justify-center text-green-600">
-                    + Rs {t.amount / 100}
-                </div>
-
-            </div>)}
+            ))}
         </div>
     </Card>
 }

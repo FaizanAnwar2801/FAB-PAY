@@ -18,7 +18,7 @@ export const Button = ({ onClick, children, variant = "solid" }: ButtonProps) =>
     <button
       onClick={onClick}
       type="button"
-      className={`${styles[variant]} focus:outline-none focus:ring-4 font-medium rounded-lg text-sm px- py-2 transition-colors duration-150`}
+      className={`${styles[variant]} focus:outline-none focus:ring-4 font-medium rounded-lg text-sm px-5 py-3 transition-colors duration-150`}
     >
       {children}
     </button>

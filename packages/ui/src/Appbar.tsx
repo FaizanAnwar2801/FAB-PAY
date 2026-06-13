@@ -16,7 +16,7 @@ export const Appbar = ({
   onLogoClick,
 }: AppbarProps) => {
   return (
-    <div className="flex justify-between items-center border-b bg-white px-6 py-3 shadow-sm">
+    <div className="flex justify-between items-center border-b bg-white px-5 py-2 shadow-sm">
       <button
         onClick={onLogoClick}
         className="text-lg font-bold tracking-tight text-gray-900 hover:text-gray-600 transition-colors duration-150 focus:outline-none"
