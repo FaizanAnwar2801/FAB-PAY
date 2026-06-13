@@ -3732,7 +3732,7 @@ __metadata:
   dependencies:
     prettier: "npm:^3.8.3"
     turbo: "npm:^2.9.16"
-    typescript: "npm:^6.0.3"
+    typescript: "npm:^5.9.2"
   languageName: unknown
   linkType: soft
 
