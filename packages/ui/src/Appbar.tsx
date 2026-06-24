@@ -23,7 +23,7 @@ export const Appbar = ({
       >
         FAB-PAY
       </button>
-      <Button variant= "outline" onClick={user ? onSignout : onSignin}>
+      <Button variant={user ? "solid" : "outline"} onClick={user ? onSignout : onSignin}>
         {user ? "Logout" : "Login"}
       </Button>
     </div>

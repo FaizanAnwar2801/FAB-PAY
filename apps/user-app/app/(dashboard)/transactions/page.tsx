@@ -6,12 +6,13 @@ import { P2PTransactionsFrom } from "../../../components/P2PTransactionFrom";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../lib/auth";
 import { WithdrawTransactions } from "../../../components/WithdrawTxns";
+import ErrorPage from "../../../components/ErrorPage";
 
-async function getBalance() {
-    const session = await getServerSession(authOptions);
+
+async function getBalance(userId: number) {
     const balance = await prisma.balance.findFirst({
         where: {
-            userId: Number(session?.user?.id)
+            userId
         }
     });
     return {
@@ -20,91 +21,78 @@ async function getBalance() {
     }
 }
 
-async function getP2PTransactions() {
-    const session = await getServerSession(authOptions);
+async function getP2PTransactions(userId: number) {
     const p2pTxns = await prisma.p2pTransfer.findMany({
         where: {
-            fromUserId: Number(session?.user?.id)
-        },include:{
-            toUser:{
-                select:{
-                    name : true,
-                }
-            }
-        },orderBy: {
-            timestamp: 'desc'  // Order by timestamp descending
-        }
+            fromUserId: userId},
+            include:{toUser:{select:{name : true}}},
+            orderBy: {timestamp: 'desc'}  // Order by timestamp descending
     });
+
     return p2pTxns.map(t => ({
         time: t.timestamp,
         amount: t.amount,
         sentTo: t.toUser.name
-    }))
+    }));
     
-}
-async function getP2PTransactionsFrom() {
-    const session = await getServerSession(authOptions);
+};
+
+async function getP2PTransactionsFrom(userId:number) {
     const p2pTxns = await prisma.p2pTransfer.findMany({
-        where: {
-            toUserId: Number(session?.user?.id)
-        },include:{
-            fromUser:{
-                select:{
-                    name : true,
-                }
-            }
-        },orderBy: {
-            timestamp: 'desc'  // Order by timestamp descending
-        }
+        where: {toUserId: userId},
+        include:{fromUser:{select:{name : true,}}},
+        orderBy: {timestamp: 'desc'}  // Order by timestamp descending
+
     });
     return p2pTxns.map(t => ({
         time: t.timestamp,
         amount: t.amount,
         sentFrom: t.fromUser.name
-    }))
+    }));
     
-}
+};
 
-async function getOnRampTransactions() {
-    const session = await getServerSession(authOptions);
+async function getOnRampTransactions(userId:number) {
     const txns = await prisma.onRampTransaction.findMany({
         where: {
-            userId: Number(session?.user?.id)
-        },orderBy: {
-            startTime: 'desc'  // Order by timestamp descending
-        }
+            userId: userId},
+            orderBy: {startTime: 'desc' } // Order by timestamp descending
+        
     });
     return txns.map(t => ({
         time: t.startTime,
         amount: t.amount,
         status: t.status,
         provider: t.provider
-    }))
-}
+    }));
+};
 
-async function getWithdrawalTxns() {
-    const session = await getServerSession(authOptions);
+async function getWithdrawalTxns(userId:number) {
     const txns = await prisma.withdrawals.findMany({
-        where: {
-            userId: Number(session?.user?.id)
-        },orderBy: {
-            startTime: 'desc'  // Order by timestamp descending
-        }
+        where: {userId: userId},
+        orderBy: {startTime: 'desc'}  // Order by timestamp descending
     });
     return txns.map(t => ({
         time: t.startTime,
         amount: t.amount,
         status: t.status,
         provider: t.provider
-    }))
-}
+    }));
+};
 
 export default async function () {
-    const balance = await getBalance();
-    const p2pTransctions = await getP2PTransactions();
-    const p2pTransctionsFrom = await getP2PTransactionsFrom();
-    const transactions = await getOnRampTransactions();
-    const withdrawals = await getWithdrawalTxns()
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user?.id) {
+        return <ErrorPage/>;
+    }
+
+    const userId = Number(session.user.id);
+    const balance = await getBalance(userId);
+    const p2pTransctions = await getP2PTransactions(userId);
+    const p2pTransctionsFrom = await getP2PTransactionsFrom(userId);
+    const transactions = await getOnRampTransactions(userId);
+    const withdrawals = await getWithdrawalTxns(userId)
 
     return <div className="w-full">
         <div className="text-4xl text-center text-[#6a51a6] pt-4 mb-4 font-bold">
